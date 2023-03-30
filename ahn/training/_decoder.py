@@ -68,8 +68,9 @@ def get_data_loader_hfstyle(config, tokenizer, split):
             return example
 
         def process_fn(examples):
+            texts = [text + tokenizer.eos_token for text in examples[config["data"]["data_key"]]]
             result = tokenizer(
-                examples[config["data"]["data_key"]],
+                texts,
                 padding=False,
                 truncation=True,
                 max_length=config["model_and_tokenizer"]["max_length"],
